@@ -17,8 +17,8 @@ tasks.jacocoTestReport {
     reports {
         xml.required = true // Отключить XML отчет
         csv.required = true // Отключить CSV отчет
-        html.outputLocation = file("${buildDir}/jacocoHtml") // Директория для HTML отчета
     }
+
 
 }
 
