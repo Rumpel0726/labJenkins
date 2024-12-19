@@ -1,5 +1,24 @@
 plugins {
     id 'java'
+    id 'jacoco'
+}
+
+jacoco {
+    toolVersion = "0.8.12" // Укажите нужную версию JaCoCo
+    reportsDirectory = file("${buildDir}/customJacocoReportDir") // Директория для отчетов
+}
+
+tasks.test {
+    finalizedBy tasks.jacocoTestReport // Отчет всегда генерируется после выполнения тестов
+}
+
+tasks.jacocoTestReport {
+    dependsOn tasks.test // Тесты должны выполняться перед генерацией отчета
+    reports {
+        xml.required = false // Отключить XML отчет
+        csv.required = false // Отключить CSV отчет
+        html.outputLocation = file("${buildDir}/jacocoHtml") // Директория для HTML отчета
+    }
 }
 
 repositories {
@@ -13,14 +32,13 @@ dependencies {
 }
 
 test {
-    useJUnitPlatform()
+    useJUnitPlatform() // Использовать JUnit 5
 }
 
 tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
+    options.encoding = "UTF-8" // Установить кодировку для компиляции
 }
 
 tasks.withType(Test) {
-    systemProperty "file.encoding", "UTF-8"
+    systemProperty "file.encoding", "UTF-8" // Установить системное свойство для тестов
 }
-
