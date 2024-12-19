@@ -15,10 +15,11 @@ tasks.test {
 tasks.jacocoTestReport {
     dependsOn tasks.test // Тесты должны выполняться перед генерацией отчета
     reports {
-        xml.required = false // Отключить XML отчет
-        csv.required = false // Отключить CSV отчет
+        xml.required = true // Отключить XML отчет
+        csv.required = true // Отключить CSV отчет
         html.outputLocation = file("${buildDir}/jacocoHtml") // Директория для HTML отчета
     }
+
 }
 
 repositories {
